@@ -8,7 +8,7 @@ const expect = chai.expect;
 
 // i can do describe.only || it.only , to test only one thing
 
-describe("Todo Get request", () => {
+describe.only("Todo Get request", () => {
   describe("testing the GET request", () => {
     it("testing the GET request", (done) => {
       app.get("/api/v1/todos").end((err, res) => {
@@ -21,10 +21,10 @@ describe("Todo Get request", () => {
       });
     });
 
-    it("Should verify that we have no todos", (done) => {
+    it("Checks if we have no todos", (done) => {
       app.get("/api/v1/todos").end((err, res) => {
         expect(res.status).to.equal(200);
-        // expect(res.body).length(1);
+        // expect(res.body).length(0);
         done();
       });
     });
@@ -52,13 +52,13 @@ describe("Todo update request", () => {
   it("Should update todo by id", (done) => {
     app
       .put("/api/v1/todos/update/65c224cf5fb1b90e0545a938")
-      .send({ todo: "kola" })
+      .send({ todo: "weeew" })
       .end((err, res) => {
         if (err) {
           done(err);
         }
         expect(res.status).to.equal(200);
-        expect(res.body.todo).to.equal("kola");
+        expect(res.body.todo).to.equal("weeew");
         done();
       });
   });
