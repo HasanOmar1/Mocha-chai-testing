@@ -9,17 +9,11 @@ const expect = chai.expect;
 // i can do describe.only || it.only , to test only one thing
 
 describe("Todo query requests", () => {
-  describe("testing the GET request", () => {
+  describe("Todo GET request", () => {
     it("Should check if I have data", (done) => {
       app.get("/api/v1/todos").end((err, res) => {
-        // console.log(res.body);
-        if (err) {
-          done(err);
-        }
-        expect(res.body).to.be.an(
-          "array",
-          "This should always give me an array"
-        );
+        expect(res.body).to.be.an("array");
+        expect(res.status).to.equal(200);
         done();
       });
     });
@@ -50,7 +44,7 @@ describe("Todo query requests", () => {
     //   });
     // });
 
-    // describe("Todo update request", () => {
+    // describe("Todo PUT request", () => {
     //   it("Should update todo by id", (done) => {
     //     app
     //       .put("/api/v1/todos/update/65c224cf5fb1b90e0545a938")
