@@ -6,6 +6,8 @@ let app = request.agent(server);
 
 const expect = chai.expect;
 
+// i can do describe.only || it.only , to test only one thing
+
 describe("Todo Get request", () => {
   describe("testing the GET request", () => {
     it("testing the GET request", (done) => {
@@ -47,7 +49,7 @@ describe("Todo Get request", () => {
 // });
 
 describe("Todo update request", () => {
-  it.only("Should update todo by id", (done) => {
+  it("Should update todo by id", (done) => {
     app
       .put("/api/v1/todos/update/65c224cf5fb1b90e0545a938")
       .send({ todo: "kola" })
