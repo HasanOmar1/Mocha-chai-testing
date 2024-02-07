@@ -27,7 +27,8 @@ const expect = chai.expect;
 //   // test cases
 // });
 
-// describe = suite , it = test
+// describe = suite
+// it = test
 // integration testing = involves API
 // unit testing = focuses on testing individual units/functions
 // i can do describe.only || it.only , to test only one test / suite
@@ -53,22 +54,6 @@ describe("Todo query requests", () => {
     // });
 
     describe("Todo POST request", () => {
-      //
-      // beforeEach clears the previous test todo before it tests
-
-      // beforeEach((done) => {
-      //   Todo.deleteOne({ todo: "test" })
-      //     .then(() => done())
-      //     .catch((err) => done(err));
-      // });
-
-      // afterEach clears all todos (because i chose that) after the todo is created
-      // afterEach((done) => {
-      //   Todo.deleteOne({ todo: "test" })
-      //     .then(() => done())
-      //     .catch((err) => done(err));
-      // });
-
       // runs once before the first test in this block
       before((done) => {
         Todo.deleteOne({ todo: "test" })
