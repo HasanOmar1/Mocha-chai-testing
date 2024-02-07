@@ -46,14 +46,14 @@ describe("Todo query requests", () => {
       });
     });
 
-    // it("Checks if we have no todos", (done) => {
-    //   app.get("/api/v1/todos").end((err, res) => {
-    //     expect(res.status).to.equal(200);
-    //     expect(res.body).length(0);
-    //     expect(res.body).to.be.empty;
-    //     done();
-    //   });
-    // });
+    it.skip("Checks if we have no todos", (done) => {
+      app.get("/api/v1/todos").end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body).length(0);
+        expect(res.body).to.be.empty;
+        done();
+      });
+    });
 
     describe("Todo POST request", () => {
       // runs once before the first test in this block
@@ -96,19 +96,19 @@ describe("Todo query requests", () => {
     });
 
     describe("Todo PUT request", () => {
-      // it("Should update todo by id", (done) => {
-      //   app
-      //     .put("/api/v1/todos/update/65c24ca7053083463a03c844") // put available id.
-      //     .send({ todo: "weeew" })
-      //     .end((err, res) => {
-      //       if (err) {
-      //         done(err);
-      //       }
-      //       expect(res.status).to.equal(200);
-      //       expect(res.body.todo).to.equal("weeew");
-      //       done();
-      //     });
-      // });
+      it.skip("Should update todo by id", (done) => {
+        app
+          .put("/api/v1/todos/update/65c24ca7053083463a03c844") // put available id.
+          .send({ todo: "weeew" })
+          .end((err, res) => {
+            if (err) {
+              done(err);
+            }
+            expect(res.status).to.equal(200);
+            expect(res.body.todo).to.equal("weeew");
+            done();
+          });
+      });
 
       it("should return 404 for not providing id / wrong id", (done) => {
         app
@@ -127,17 +127,16 @@ describe("Todo query requests", () => {
     });
 
     describe("Todo DELETE request", () => {
-      // it("Should delete todo by id", (done) => {
+      it.skip("Should delete todo by id", (done) => {
+        app.delete("/api/v1/todos/65c35fdcf03f9a8bc5a63ba4").end((err, res) => {
+          if (err) {
+            done(err);
+          }
 
-      //   app.delete("/api/v1/todos/65c35fdcf03f9a8bc5a63ba4").end((err, res) => {
-      //     if (err) {
-      //       done(err);
-      //     }
-
-      //     expect(res.status).to.be.equal(200);
-      //     done();
-      //   });
-      // });
+          expect(res.status).to.be.equal(200);
+          done();
+        });
+      });
 
       it("Should return 404 because id not found/provided", (done) => {
         app.delete("/api/v1/todos").end((err, res) => {
