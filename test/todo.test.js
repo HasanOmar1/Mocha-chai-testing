@@ -7,6 +7,8 @@ let app = request.agent(server);
 
 const expect = chai.expect;
 
+// more info in setup.test.js
+
 // describe('hooks', function () {
 //   before(function () {
 //     // runs once before the first test in this block
