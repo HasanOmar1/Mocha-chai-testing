@@ -50,8 +50,14 @@ export const updateTodo = async (req, res, next) => {
     );
     if (!todo) {
       res.status(STATUS_CODE.NOT_FOUND);
+      throw new Error(`Add a todo!`);
+    }
+
+    if (!updatedTodo) {
+      res.status(STATUS_CODE.NOT_FOUND);
       throw new Error(`This todo is not on the list`);
     }
+
     res.send(updatedTodo);
   } catch (error) {
     next(error);
