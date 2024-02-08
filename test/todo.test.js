@@ -2,6 +2,7 @@ import * as chai from "chai";
 import request from "supertest";
 import server from "../server.js";
 import Todo from "../models/todoModel.js";
+import jwt from "jsonwebtoken";
 
 let app = request.agent(server);
 
@@ -35,6 +36,16 @@ const expect = chai.expect;
 // unit testing = focuses on testing individual units/functions
 // i can do describe.only || it.only , to test only one test / suite
 // i can do describe.skip || it.skip , to skip one test / suite
+// for authentication add this to the route where u have authentication
+// .auth(token, { type: "bearer" }) [ you have to create a token first with valid id]
+
+const generateAuthToken = (userId) => {
+  // Generate a token using a library like jsonwebtoken
+  const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
+    expiresIn: "7d",
+  });
+  return token;
+};
 
 describe("Todo query requests", () => {
   describe("Todo GET request", () => {
@@ -56,6 +67,9 @@ describe("Todo query requests", () => {
     });
 
     describe("Todo POST request", () => {
+      // Generate a token for testing purposes
+      const token = generateAuthToken("65c0ee97edd7d56705c1666f");
+
       // runs once before the first test in this block
       before((done) => {
         Todo.deleteOne({ todo: "test" })
@@ -63,10 +77,11 @@ describe("Todo query requests", () => {
           .catch((err) => done(err));
       });
 
-      it("Should add a new todo", (done) => {
+      it.only("Should add a new todo", (done) => {
         app
           .post("/api/v1/todos/add")
           .send({ todo: "test" })
+          .auth(token, { type: "bearer" })
           .end((err, res) => {
             if (err) {
               return done(err);
@@ -127,13 +142,14 @@ describe("Todo query requests", () => {
     });
 
     describe("Todo DELETE request", () => {
-      it.skip("Should delete todo by id", (done) => {
-        app.delete("/api/v1/todos/65c35fdcf03f9a8bc5a63ba4").end((err, res) => {
+      it("Should delete todo by id", (done) => {
+        app.delete("/api/v1/todos/65c48378e48d39bbeee7e98a").end((err, res) => {
           if (err) {
             done(err);
           }
 
           expect(res.status).to.be.equal(200);
+          expect(res.body).to.be.an("object");
           done();
         });
       });
